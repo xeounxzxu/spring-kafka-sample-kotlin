@@ -3,7 +3,6 @@ package com.example.kafkastreamexample.stream
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.cloud.stream.annotation.StreamRetryTemplate
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.retry.RetryCallback
 import org.springframework.retry.RetryContext
 import org.springframework.retry.RetryListener
@@ -14,7 +13,7 @@ private val log = KotlinLogging.logger {}
 //@Configuration
 class KafkaStreamRetryTemplate {
 
-//    @Bean
+    @Bean
     @StreamRetryTemplate
     fun basicConsumer2RetryTemplate(): RetryTemplate =
         RetryTemplate.builder()

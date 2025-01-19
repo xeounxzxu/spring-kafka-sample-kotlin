@@ -13,4 +13,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka:4.1.2")
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.apache.kafka:kafka-streams")
+
+    // db 세팅
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("com.h2database:h2")
 }
