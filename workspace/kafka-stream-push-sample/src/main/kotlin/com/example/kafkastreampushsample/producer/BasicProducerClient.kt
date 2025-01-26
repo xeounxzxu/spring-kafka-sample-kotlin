@@ -15,7 +15,7 @@ class BasicProducerClient(
 
     private var count = 0
 
-    fun send() {
+    fun send(payload: String? = null) {
         log.info { "work send topic - start" }
         val message = "$testGroup-${count++}"
         streamBridge.send(

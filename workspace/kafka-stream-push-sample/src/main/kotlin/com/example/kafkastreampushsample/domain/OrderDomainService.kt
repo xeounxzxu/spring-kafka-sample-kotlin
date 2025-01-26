@@ -26,13 +26,14 @@ class OrderDomainService(
         order: Order
     ): OrderEntity {
         return outbox(
-            payload = order.toPayload()
+            payload = order.toPayload(),
+            aggregateId = ORDER_CREATED_ID
         ) {
             // 주문을한다.
             val entity = orderRepository.save(order.toEntity())
 
             // 주문을 했어라는 주문 이벤트를 발행을 한다.
-            orderEventClient.send()
+            orderEventClient.send(payload)
 
             // 타 패키지의 저장된 주문 정보를 넘기기 위한 return
             entity
@@ -42,13 +43,14 @@ class OrderDomainService(
     // 비지니스 로직 과 계위를 나누기 위한 함수화
     fun <T> outbox(
         payload: String,
+        aggregateId: String,
         action: () -> T
     ): T {
 
         // outbox 패턴 시작
         val outbox = OutboxEntity.start(
             payload = payload,
-            aggregateId = ""
+            aggregateId = aggregateId
         )
 
         outboxRepository.save(outbox)
@@ -58,6 +60,10 @@ class OrderDomainService(
         outbox.confirm()
 
         return action
+    }
+
+    companion object {
+        private const val ORDER_CREATED_ID = "CreatedOrder"
     }
 }
 
