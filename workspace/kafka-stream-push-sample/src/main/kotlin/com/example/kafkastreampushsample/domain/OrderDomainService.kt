@@ -33,7 +33,7 @@ class OrderDomainService(
             val entity = orderRepository.save(order.toEntity())
 
             // 주문을 했어라는 주문 이벤트를 발행을 한다.
-            orderEventClient.send(payload)
+            // orderEventClient.send(payload)
 
             // 타 패키지의 저장된 주문 정보를 넘기기 위한 return
             entity
@@ -66,6 +66,3 @@ class OrderDomainService(
         private const val ORDER_CREATED_ID = "CreatedOrder"
     }
 }
-
-
-
