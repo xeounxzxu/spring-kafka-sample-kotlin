@@ -21,7 +21,7 @@ class KafkaSampleStream {
 
     @Bean
     fun basicConsumer() = Consumer<String> {
-        log.info { "basicConsumer Work ==> $it" }
+        // log.info { "basicConsumer Work ==> $it" }
     }
 
     @Bean

@@ -16,12 +16,6 @@ spring:
 
             bindings:
 
-#                # producer
-#                basicProducer-out-0:
-#                    binder: local-kafka
-#                    destination: chat # 토픽
-#                    content-type: application/json
-
                 # consumer
                 basicConsumer-in-0:
                     binder: local-kafka
@@ -46,13 +40,21 @@ spring:
             kafka:
                 bindings:
 
-                    basicConsumer2-out-0:
+                    basicConsumer2-in-0:
                         consumer:
-                          # start-offset: latest
-                          start-offset: earliest
-                          ack-mode: record
+                          # DLQ 설정 활성화
+                          enable-dlq: true
+                          dlq-name: chat.dlt
+                          dlq-producer-properties:
+                              configuration:
 
-                    basicConsumer-out-0:
+
+
+                            # start-offset: latest
+                          start-offset: earliest
+                          ack-mode: record # 개별 메세지 ask 모드
+
+                    basicConsumer-in-0:
                         consumer:
                             # 레코드 단위로 commit을 진행
                             ack-mode: record
